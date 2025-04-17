@@ -26,8 +26,8 @@ public class GameController : MonoBehaviour
 
     [Header("Colors")]
     private List<Color> _availableColors = new List<Color>() {
-        Color.red, Color.blue, Color.green, Color.yellow, Color.magenta, new Color(1, 0.5f, 0), // Orange
-        Color.cyan
+        Color.red, Color.blue, Color.green, Color.yellow, 
+        Color.magenta, new Color(1, 0.5f, 0), Color.cyan
     };
     
     private Logger _logger;
@@ -144,6 +144,26 @@ public class GameController : MonoBehaviour
         GenerateGrid();
         UpdateMovesUI();
     }
+    
+    private int GetColorsFromDropdown()
+    {
+        if (int.TryParse(_colorDropdown.options[_colorDropdown.value].text, out int result))
+        {
+            return result;
+        }
+        
+        return 6;
+    }
+
+    private int GetMovesFromDropdown()
+    {
+        if (int.TryParse(_movesDropdown.options[_movesDropdown.value].text, out int result))
+        {
+            return result;
+        }
+        
+        return 25;
+    }
 
     private int GetSizeFromDropdown()
     {
@@ -155,29 +175,7 @@ public class GameController : MonoBehaviour
             default: return 14;
         }
     }
-
-    private int GetColorsFromDropdown()
-    {
-        switch (_colorDropdown.value)
-        {
-            case 0: return 5;
-            case 1: return 6;
-            case 2: return 7;
-            default: return 6;
-        }
-    }
-
-    private int GetMovesFromDropdown()
-    {
-        switch (_movesDropdown.value)
-        {
-            case 0: return 20;
-            case 1: return 25;
-            case 2: return 30;
-            default: return 25;
-        }
-    }
-     
+    
     private void ClearGrid()
     {
         if (_gridParent == null) return;
